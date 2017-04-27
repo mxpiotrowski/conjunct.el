@@ -1,0 +1,26 @@
+* conjunct: transpose conjuncts around conjunction in Emacs
+
+Sometimes during writing you recognize that it would be nice to change word order within a coordination.  For example, instead of /editing and revising/ you may prefer /revising and editing/.  Placing the point on the conjunction and calling ~conjunct-mode~ will help you doing this “nice ’n easy.”
+
+Put this in your =.emacs= or =init.el= to bind ~conjunct-mode~ to =M-C-t= in ~text-mode~, ~TeX-mode~, and ~message-mode~:
+
+#+BEGIN_SRC elisp
+(require 'conjunct)
+(define-key text-mode-map [(meta control t)] 'conjunct-mode)
+(add-hook 'TeX-mode-hook
+	  (lambda ()
+	    (define-key LaTeX-mode-map [(meta control t)] 'conjunct-mode)))
+(define-key message-mode-map [(meta control t)] 'conjunct-mode)
+#+END_SRC
+
+When entering ~conjunct-mode~, the word on which the point is placed (the conjunction) will be marked, as well as the two words immediately to the right and the left of the conjunction.  The right word is called “right conjunct,” the left word is called “left conjunct.”
+
+If one or both of the conjuncts comprise more than one word, you can expand them.  You can also reduce both conjuncts. Of course, each conjunct has to consist of at least one word.
+
+If you like to transpose heads of phrases or words not directly adjacent to the conjunction, you can reduce and expand the conjuncts to mark the desired word(s).
+
+You can expand, reduce and transpose conjuncts as often as you want.  You are free to choose the right order of commands.
+
+Leaving conjunct-mode returns you to the previous mode.  The marks for the conjunction and the conjuncts disappear.  You can exit conjunct-mode at any time, it is not necessary to actually transpose the conjuncts!
+
+~conjunct-mode~ was originally developed in 2008 for the [[http://lingured.info][LingURed]] project.  It was originally written for XEmacs; this version of ~conjunct-mode~ uses overlays and works with both GNU Emacs and XEmacs.
