@@ -424,7 +424,9 @@ Keymap overview:
   (setq mode-name conjunct-mode-old-mode-name)
   (use-local-map conjunct-mode-old-local-map)
   (setq major-mode conjunct-mode-old-major-mode)
-  (redraw-modeline)
+  (if (boundp 'redraw-modeline)
+      (redraw-modeline) ; XEmacs
+    (force-mode-line-update))    
 
   ;; delete overlays
   (delete-overlay conjunct-overlay-conjunct)
